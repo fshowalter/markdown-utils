@@ -5,7 +5,7 @@ import { extractPlainText } from "./extractPlainText.js";
 
 // AIDEV-NOTE: Every expectation here was measured from the strip-markdown
 // pipeline this replaces, including the block-joining and trailing-newline shape,
-// because buildDescription slices the result to 160 characters.
+// because renderAsPlainText slices the result to a character ceiling.
 
 describe("extractPlainText", () => {
   it("strips inline markup and reduces links to their text", () => {
@@ -114,5 +114,52 @@ describe("extractPlainText", () => {
       extractPlainText("Use `a--b` here."),
       "Use a--b here.\n",
     );
+  });
+
+  it("drops underscore emphasis markers by default", () => {
+    assert.strictEqual(
+      extractPlainText("I watched _The Shining_ again."),
+      "I watched The Shining again.\n",
+    );
+  });
+
+  describe("with quoteUnderscoreEmphasis", () => {
+    /**
+     * @param {string} source
+     * @returns {string}
+     */
+    const quoted = (source) =>
+      extractPlainText(source, { quoteUnderscoreEmphasis: true });
+
+    it("wraps underscore emphasis in smart quotes", () => {
+      assert.strictEqual(
+        quoted("I watched _The Shining_ again."),
+        "I watched “The Shining” again.\n",
+      );
+    });
+
+    it("leaves asterisk emphasis unquoted", () => {
+      assert.strictEqual(quoted("A *very* good film."), "A very good film.\n");
+    });
+
+    it("quotes underscore emphasis nested in a link", () => {
+      assert.strictEqual(
+        quoted("See [_The Shining_](/x)."),
+        "See “The Shining”.\n",
+      );
+    });
+
+    it("leaves underscore strong emphasis unquoted", () => {
+      assert.strictEqual(quoted("A __loud__ film."), "A loud film.\n");
+    });
+
+    // AIDEV-NOTE: Sätteri reports code-point offsets, so an astral character
+    // ahead of the emphasis desynchronizes a naive `source[offset]` lookup.
+    it("finds the marker after an astral character", () => {
+      assert.strictEqual(
+        quoted("😀 _The Shining_ again."),
+        "😀 “The Shining” again.\n",
+      );
+    });
   });
 });

@@ -12,6 +12,7 @@
     "test:coverage": "vitest run src --coverage",
     "test": "vitest run src"
   },
+  "main": "index.ts",
   "dependencies": {
     "js-yaml": "5.2.2",
     "satteri": "0.9.5"

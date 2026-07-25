@@ -100,6 +100,13 @@ jobs:
       - name: type-check
         run: npm run check
 
+      # types/ is generated from the JSDoc annotations and committed, so it can go
+      # stale. Regenerate and fail if the result differs from what was checked in.
+      - name: check committed declarations are current
+        run: |
+          npm run build:types &&
+          git diff --exit-code -- types
+
   lint:
     runs-on: ubuntu-latest
     steps:

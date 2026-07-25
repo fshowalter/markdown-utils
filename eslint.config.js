@@ -1,7 +1,6 @@
 import eslint from "@eslint/js";
 import vitest from "@vitest/eslint-plugin";
 import perfectionist from "eslint-plugin-perfectionist";
-import eslintPluginSeparateTypeImports from "eslint-plugin-separate-type-imports";
 import eslintPluginUnicorn from "eslint-plugin-unicorn";
 import { defineConfig } from "eslint/config";
 import tsEslint from "typescript-eslint";
@@ -12,14 +11,16 @@ export default defineConfig(
   },
   eslint.configs.recommended,
   eslintPluginUnicorn.configs.unopinionated,
-  eslintPluginSeparateTypeImports.configs.recommended,
   perfectionist.configs["recommended-natural"],
   tsEslint.configs.recommendedTypeChecked,
   {
     rules: {
-      "@typescript-eslint/array-type": "error",
-      "@typescript-eslint/consistent-type-definitions": ["error", "type"],
-      "@typescript-eslint/consistent-type-imports": "off", // Turned off in favor of our custom rule
+      // AIDEV-NOTE: The TypeScript-syntax rules that used to live here (array-type,
+      // consistent-type-definitions, consistent-type-imports, and the
+      // separate-type-imports plugin) are gone: there is no TypeScript syntax left for
+      // them to act on. Types now live in JSDoc, which typescript-eslint does not lint.
+      // The type-aware rules from recommendedTypeChecked still apply -- they work on .js
+      // under checkJs, and no-unsafe-* matters more now, not less.
       "no-restricted-imports": [
         "error",
         {

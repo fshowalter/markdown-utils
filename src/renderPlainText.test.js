@@ -14,7 +14,7 @@ const LONG_BODY =
 const TITLE_AT_THE_CUT =
   "Alcoholic writer Jack Torrance uproots his wife Wendy and five-year-old son Danny from New England to Colorado to serve as winter caretakers, much as in _The Shining_ before them.";
 
-describe("renderAsPlainText", () => {
+describe("renderPlainText", () => {
   it("returns a short body whole", () => {
     assert.strictEqual(renderPlainText("Short body."), "Short body.");
   });

@@ -12,7 +12,7 @@ import { smartDashes } from "./plugins/smartDashes.js";
  * @param {string} source
  * @returns {string}
  */
-export function renderMarkdown(source) {
+export function renderHtml(source) {
   return markdownToHtml(source, {
     features: MARKDOWN_FEATURES,
     mdastPlugins: [smartDashes],

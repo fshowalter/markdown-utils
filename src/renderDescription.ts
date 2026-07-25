@@ -4,7 +4,7 @@ const MAX_LENGTH = 160;
 
 /** Builds the `<meta name="description">` text: plain text, single-spaced, capped
  *  at 160 characters and never cut mid-word. */
-export function buildDescription(source: string): string {
+export function renderDescription(source: string): string {
   const description = extractPlainText(source)
     .replaceAll(/\r?\n|\r/g, " ")
     .slice(0, Math.max(0, MAX_LENGTH));

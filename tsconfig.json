@@ -28,6 +28,12 @@
     // Skip typechecking libraries and .d.ts files
     "skipLibCheck": true,
     // Allow JavaScript files to be imported
-    "allowJs": true
+    "allowJs": true,
+    // Type-check those JavaScript files using their JSDoc annotations. This is what
+    // replaces TypeScript syntax once the sources are converted.
+    "checkJs": true,
+    // Enable all strict type-checking options. Without strictNullChecks in particular,
+    // JSDoc type annotations catch very little.
+    "strict": true
   }
 }

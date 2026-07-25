@@ -1,22 +1,14 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends": [
-    "config:best-practices"
-  ],
-  "assignees": [
-    "fshowalter"
-  ],
+  "extends": ["config:best-practices"],
+  "assignees": ["fshowalter"],
   "rangeStrategy": "pin",
   "prHourlyLimit": 0,
   "prConcurrentLimit": 0,
   "lockFileMaintenance": {
     "enabled": true,
-    "schedule": [
-      "at any time"
-    ]
+    "schedule": ["at any time"]
   },
-  "postUpdateOptions": [
-    "npmDedupe"
-  ],
+  "postUpdateOptions": ["npmDedupe"],
   "automerge": true
 }

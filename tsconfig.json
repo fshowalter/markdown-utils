@@ -1,5 +1,7 @@
 {
-  "exclude": ["dist/**", "coverage/**", "content/**"],
+  // types/** is generated from these very sources by `npm run build:types`; checking it
+  // would just re-check the same declarations.
+  "exclude": ["dist/**", "coverage/**", "content/**", "types/**"],
   "compilerOptions": {
     "types": ["node"],
     // Enable top-level await, and other modern ESM features.

@@ -8,7 +8,7 @@ import tsEslint from "typescript-eslint";
 
 export default defineConfig(
   {
-    ignores: ["dist/", "coverage/", "content/", "public/"],
+    ignores: ["dist/", "coverage/", "content/", "public/", "types/"],
   },
   eslint.configs.recommended,
   eslintPluginUnicorn.configs.unopinionated,

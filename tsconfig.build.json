@@ -1,0 +1,17 @@
+{
+  // Declaration-only build. The runtime story is buildless -- consumers import the .js
+  // sources directly -- but TypeScript consumers still need .d.ts files, so these are
+  // generated from the JSDoc annotations and committed. Regenerate with
+  // `npm run build:types`; CI fails if the committed output is stale.
+  "extends": "./tsconfig.json",
+  "include": ["index.js", "src/**/*.js"],
+  "exclude": ["src/**/*.test.js"],
+  "compilerOptions": {
+    "noEmit": false,
+    "declaration": true,
+    "emitDeclarationOnly": true,
+    // Source maps point back at the .js sources, which ship with the package.
+    "declarationMap": true,
+    "declarationDir": "types"
+  }
+}

@@ -1,7 +1,7 @@
 import { load } from "js-yaml";
 import { markdownToMdast } from "satteri";
 
-import { MARKDOWN_FEATURES } from "./features";
+import { MARKDOWN_FEATURES } from "./features.js";
 
 /**
  * Reads the YAML frontmatter block from a markdown file.

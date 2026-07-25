@@ -1,9 +1,9 @@
 import { markdownToHtml } from "satteri";
 
-import { MARKDOWN_FEATURES } from "./features";
-import { removeFootnotes } from "./plugins/removeFootnotes";
-import { smartDashes } from "./plugins/smartDashes";
-import { trimToExcerpt } from "./plugins/trimToExcerpt";
+import { MARKDOWN_FEATURES } from "./features.js";
+import { removeFootnotes } from "./plugins/removeFootnotes.js";
+import { smartDashes } from "./plugins/smartDashes.js";
+import { trimToExcerpt } from "./plugins/trimToExcerpt.js";
 
 /**
  * Excerpt HTML pipeline — footnotes stripped, trimmed to the first paragraph.

@@ -1,6 +1,6 @@
 import { describe, it } from "vitest";
 
-import { parseFrontmatter } from "./parseFrontmatter";
+import { parseFrontmatter } from "./parseFrontmatter.js";
 
 describe("parseFrontmatter", () => {
   it("parses the YAML block into an object", ({ expect }) => {

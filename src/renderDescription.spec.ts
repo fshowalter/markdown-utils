@@ -1,6 +1,6 @@
 import { describe, it } from "vitest";
 
-import { renderDescription } from "./renderDescription";
+import { renderDescription } from "./renderDescription.js";
 
 // Feeds the <meta name="description"> tag, so the 160-character ceiling and the
 // no-mid-word-truncation rule are both user visible.

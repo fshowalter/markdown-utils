@@ -1,7 +1,7 @@
 import { markdownToHtml } from "satteri";
 
-import { MARKDOWN_FEATURES } from "./features";
-import { smartDashes } from "./plugins/smartDashes";
+import { MARKDOWN_FEATURES } from "./features.js";
+import { smartDashes } from "./plugins/smartDashes.js";
 
 const PARAGRAPH_OPEN = "<p>";
 const PARAGRAPH_CLOSE = "</p>";

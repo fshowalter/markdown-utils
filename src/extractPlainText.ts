@@ -2,8 +2,8 @@ import type { MdastNode } from "satteri";
 
 import { markdownToMdast } from "satteri";
 
-import { MARKDOWN_FEATURES } from "./features";
-import { applySmartDashes } from "./plugins/smartDashes";
+import { MARKDOWN_FEATURES } from "./features.js";
+import { applySmartDashes } from "./plugins/smartDashes.js";
 
 /**
  * Flattens markdown to plain text, replacing `strip-markdown`.

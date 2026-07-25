@@ -1,4 +1,4 @@
-import { extractPlainText } from "./extractPlainText";
+import { extractPlainText } from "./extractPlainText.js";
 
 const MAX_LENGTH = 160;
 

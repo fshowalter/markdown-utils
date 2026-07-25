@@ -1,6 +1,6 @@
 import { describe, it } from "vitest";
 
-import { renderMarkdown } from "./renderMarkdown";
+import { renderMarkdown } from "./renderMarkdown.js";
 
 // AIDEV-NOTE: Ported from the remark-era acceptance suite. Expectations are
 // deliberately IDENTICAL to the pre-migration ones except where a comment says

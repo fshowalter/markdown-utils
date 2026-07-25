@@ -1,6 +1,6 @@
 import { describe, it } from "vitest";
 
-import { renderExcerpt } from "./renderExcerpt";
+import { renderExcerpt } from "./renderExcerpt.js";
 
 describe("renderExcerpt", () => {
   describe("source selection", () => {

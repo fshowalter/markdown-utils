@@ -1,6 +1,6 @@
 import { describe, it } from "vitest";
 
-import { extractPlainText } from "./extractPlainText";
+import { extractPlainText } from "./extractPlainText.js";
 
 // AIDEV-NOTE: Every expectation here was measured from the strip-markdown
 // pipeline this replaces, including the block-joining and trailing-newline shape,

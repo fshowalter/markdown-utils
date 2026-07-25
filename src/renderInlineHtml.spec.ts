@@ -1,6 +1,6 @@
 import { describe, it } from "vitest";
 
-import { renderInlineHtml } from "./renderInlineHtml";
+import { renderInlineHtml } from "./renderInlineHtml.js";
 
 // Feeds readings.editionNotesHtml, which ReadingHistory.astro drops into an
 // existing <span class="rendered-markdown leading-none"> — so this must emit no

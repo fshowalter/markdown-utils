@@ -1,5 +1,5 @@
 /**
- * @typedef {object} RenderAsPlainTextOptions
+ * @typedef {object} RenderPlainTextOptions
  * @property {number} [maxLength] Character ceiling, 160 by default. Longer text
  *   is cut on a word boundary, so the result is usually shorter than the cap.
  * @property {boolean} [quoteUnderscoreEmphasis] Wrap `_underscore emphasis_` in
@@ -12,11 +12,11 @@
  * and its OpenGraph twin.
  *
  * @param {string} source
- * @param {RenderAsPlainTextOptions} [options]
+ * @param {RenderPlainTextOptions} [options]
  * @returns {string}
  */
-export function renderAsPlainText(source: string, options?: RenderAsPlainTextOptions): string;
-export type RenderAsPlainTextOptions = {
+export function renderPlainText(source: string, options?: RenderPlainTextOptions): string;
+export type RenderPlainTextOptions = {
     /**
      * Character ceiling, 160 by default. Longer text
      * is cut on a word boundary, so the result is usually shorter than the cap.
@@ -29,4 +29,4 @@ export type RenderAsPlainTextOptions = {
      */
     quoteUnderscoreEmphasis?: boolean | undefined;
 };
-//# sourceMappingURL=renderAsPlainText.d.ts.map
+//# sourceMappingURL=renderPlainText.d.ts.map

@@ -1,25 +1,39 @@
 import eslint from "@eslint/js";
-import vitest from "@vitest/eslint-plugin";
 import perfectionist from "eslint-plugin-perfectionist";
-import eslintPluginSeparateTypeImports from "eslint-plugin-separate-type-imports";
 import eslintPluginUnicorn from "eslint-plugin-unicorn";
 import { defineConfig } from "eslint/config";
 import tsEslint from "typescript-eslint";
 
 export default defineConfig(
   {
-    ignores: ["dist/", "coverage/", "content/", "public/"],
+    ignores: ["dist/", "coverage/", "content/", "public/", "types/"],
   },
   eslint.configs.recommended,
   eslintPluginUnicorn.configs.unopinionated,
-  eslintPluginSeparateTypeImports.configs.recommended,
   perfectionist.configs["recommended-natural"],
   tsEslint.configs.recommendedTypeChecked,
   {
     rules: {
-      "@typescript-eslint/array-type": "error",
-      "@typescript-eslint/consistent-type-definitions": ["error", "type"],
-      "@typescript-eslint/consistent-type-imports": "off", // Turned off in favor of our custom rule
+      // AIDEV-NOTE: The TypeScript-syntax rules that used to live here (array-type,
+      // consistent-type-definitions, consistent-type-imports, and the
+      // separate-type-imports plugin) are gone: there is no TypeScript syntax left for
+      // them to act on. Types now live in JSDoc, which typescript-eslint does not lint.
+      // The type-aware rules from recommendedTypeChecked still apply -- they work on .js
+      // under checkJs, and no-unsafe-* matters more now, not less.
+      //
+      // AIDEV-NOTE: node:test's describe/it return promises that are not meant to be
+      // awaited, so every test in the suite would otherwise trip no-floating-promises.
+      // allowForKnownSafeCalls is the rule's own option for this case -- it narrows the
+      // exemption to those two imports from node:test, so a genuinely floating promise
+      // anywhere else (including inside a test body) is still an error.
+      "@typescript-eslint/no-floating-promises": [
+        "error",
+        {
+          allowForKnownSafeCalls: [
+            { from: "package", name: ["describe", "it"], package: "node:test" },
+          ],
+        },
+      ],
       "no-restricted-imports": [
         "error",
         {
@@ -46,15 +60,6 @@ export default defineConfig(
         tsconfigRootDir: import.meta.dirname,
         warnOnUnsupportedTypeScriptVersion: false,
       },
-    },
-  },
-  {
-    files: ["src/**/?(*.)+(spec|test).[jt]s?(x)"],
-    plugins: {
-      vitest,
-    },
-    rules: {
-      ...vitest.configs.recommended.rules,
     },
   },
 );

@@ -1,15 +1,18 @@
 import { markdownToHtml } from "satteri";
 
-import { MARKDOWN_FEATURES } from "./features";
-import { smartDashes } from "./plugins/smartDashes";
+import { MARKDOWN_FEATURES } from "./features.js";
+import { smartDashes } from "./plugins/smartDashes.js";
 
 /**
  * Full block HTML pipeline — footnotes rendered, raw spans intact,
  * linkReviewedTitles not applied (that happens in the render layer).
  *
  * Frontmatter is skipped by the parser, so this accepts a whole file.
+ *
+ * @param {string} source
+ * @returns {string}
  */
-export function renderMarkdown(source: string): string {
+export function renderMarkdown(source) {
   return markdownToHtml(source, {
     features: MARKDOWN_FEATURES,
     mdastPlugins: [smartDashes],

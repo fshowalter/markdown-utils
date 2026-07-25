@@ -3,15 +3,30 @@
   "type": "module",
   "version": "1.0.0",
   "scripts": {
+    "build:types": "tsc -p tsconfig.build.json",
     "check": "tsc",
     "format": "prettier . --check",
     "format:fix": "prettier . --write",
     "knip": "knip",
     "lint": "eslint  .",
     "lint:fix": "eslint --fix .",
-    "test:coverage": "vitest run src --coverage",
-    "test": "vitest run src"
+    "test:coverage": "node --test --experimental-test-coverage './src/**/*.test.js'",
+    "test": "node --test './src/**/*.test.js'"
   },
+  "main": "index.js",
+  "types": "./types/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./types/index.d.ts",
+      "default": "./index.js"
+    }
+  },
+  "files": [
+    "index.js",
+    "src",
+    "types",
+    "!src/**/*.test.js"
+  ],
   "dependencies": {
     "js-yaml": "5.2.2",
     "satteri": "0.9.5"
@@ -19,22 +34,22 @@
   "devDependencies": {
     "@eslint/js": "10.0.1",
     "@types/node": "24.13.3",
-    "@vitest/coverage-v8": "4.1.10",
-    "@vitest/eslint-plugin": "1.6.23",
     "eslint": "10.7.0",
     "eslint-plugin-perfectionist": "5.10.0",
-    "eslint-plugin-separate-type-imports": "git://github.com/fshowalter/eslint-plugin-separate-type-imports.git",
     "eslint-plugin-unicorn": "72.0.0",
     "knip": "6.29.0",
     "prettier": "3.9.6",
     "typescript": "6.0.3",
-    "typescript-eslint": "8.65.0",
-    "vitest": "4.1.10",
-    "vitest-fail-on-console": "0.10.1"
+    "typescript-eslint": "8.65.0"
   },
   "engines": {
     "node": "24.18.0",
     "npm": "12.0.1"
+  },
+  "knip": {
+    "ignore": [
+      "types/**"
+    ]
   },
   "allowScripts": {
     "fsevents@2.3.3": true

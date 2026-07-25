@@ -1,7 +1,7 @@
 import { load } from "js-yaml";
 import { markdownToMdast } from "satteri";
 
-import { MARKDOWN_FEATURES } from "./features";
+import { MARKDOWN_FEATURES } from "./features.js";
 
 /**
  * Reads the YAML frontmatter block from a markdown file.
@@ -17,11 +17,12 @@ import { MARKDOWN_FEATURES } from "./features";
  *
  * js-yaml leaves timestamps as strings; the collection schemas coerce them with
  * z.coerce.date().
+ *
+ * @param {string} source
+ * @param {string} filePath
+ * @returns {Record<string, unknown>}
  */
-export function parseFrontmatter(
-  source: string,
-  filePath: string,
-): Record<string, unknown> {
+export function parseFrontmatter(source, filePath) {
   const tree = markdownToMdast(source, { features: MARKDOWN_FEATURES });
   const [firstChild] = "children" in tree ? tree.children : [];
 
@@ -29,5 +30,5 @@ export function parseFrontmatter(
     throw new Error(`Frontmatter not found in ${filePath}`);
   }
 
-  return load(firstChild.value) as Record<string, unknown>;
+  return /** @type {Record<string, unknown>} */ (load(firstChild.value));
 }

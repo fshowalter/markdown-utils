@@ -1,10 +1,6 @@
-import type {
-  MdastNode,
-  MdastPluginDefinition,
-  MdastVisitorContext,
-} from "satteri";
-
 import { defineMdastPlugin } from "satteri";
+
+/** @import { MdastNode, MdastPluginDefinition, MdastVisitorContext } from "satteri" */
 
 /**
  * Drops every root-level block that follows the first paragraph, leaving an
@@ -19,14 +15,18 @@ import { defineMdastPlugin } from "satteri";
  *
  * This is a factory rather than a plain definition so the "seen" flag resets
  * between documents — Sätteri calls factories once per compile.
+ *
+ * @returns {MdastPluginDefinition}
  */
-export function trimToExcerpt(): MdastPluginDefinition {
+export function trimToExcerpt() {
   let seenFirstParagraph = false;
 
-  const trimAfterFirstParagraph = (
-    node: Readonly<MdastNode>,
-    ctx: MdastVisitorContext,
-  ): void => {
+  /**
+   * @param {Readonly<MdastNode>} node
+   * @param {MdastVisitorContext} ctx
+   * @returns {void}
+   */
+  const trimAfterFirstParagraph = (node, ctx) => {
     if (ctx.parent(node)?.type !== "root") {
       return;
     }

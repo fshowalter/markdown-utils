@@ -13,8 +13,11 @@ const DOUBLE_DASH = /(?<!-)--(?!-)/gu;
  * Exported separately from the plugin because extractPlainText walks
  * `markdownToMdast` output, which never runs plugins, and so has to apply the
  * substitution itself.
+ *
+ * @param {string} value
+ * @returns {string}
  */
-export function applySmartDashes(value: string): string {
+export function applySmartDashes(value) {
   return value.replaceAll(DOUBLE_DASH, "—");
 }
 

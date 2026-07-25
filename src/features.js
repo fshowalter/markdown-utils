@@ -1,4 +1,4 @@
-import type { Features } from "satteri";
+/** @import { Features } from "satteri" */
 
 /**
  * Parser features shared by every pipeline.
@@ -8,8 +8,10 @@ import type { Features } from "satteri";
  * use `--` as an EM dash, matching remark-smartypants' `dashes: true`. The
  * `smartDashes` plugin reproduces that instead. Quotes and ellipses are native
  * because they match remark exactly (and pair quotes across inline elements).
+ *
+ * @type {Features}
  */
-export const MARKDOWN_FEATURES: Features = {
+export const MARKDOWN_FEATURES = {
   frontmatter: true,
   // U+FE0E forces the text presentation of the arrow rather than an emoji.
   gfm: { footnotes: { backContent: "↩\u{FE0E}" } },

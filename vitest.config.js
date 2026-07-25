@@ -1,9 +1,10 @@
-/// <reference types="vitest/config" />
+import process from "node:process";
+import { defineConfig } from "vitest/config";
 
-export default {
+export default defineConfig({
   test: {
     coverage: {
-      include: ["src/**/*.{ts,js}"],
+      include: ["src/**/*.js"],
       provider: "v8",
     },
     globals: true, // needed for testing-library teardown
@@ -12,11 +13,11 @@ export default {
         extends: true,
         test: {
           environment: "node",
-          include: ["src/**/*.spec.ts"],
+          include: ["src/**/*.test.js"],
           name: "node",
         },
       },
     ],
     reporters: process.env.GITHUB_ACTIONS ? ["dot", "github-actions"] : ["dot"],
   },
-};
+});

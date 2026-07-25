@@ -8,8 +8,11 @@ import { smartDashes } from "./plugins/smartDashes.js";
  * linkReviewedTitles not applied (that happens in the render layer).
  *
  * Frontmatter is skipped by the parser, so this accepts a whole file.
+ *
+ * @param {string} source
+ * @returns {string}
  */
-export function renderMarkdown(source: string): string {
+export function renderMarkdown(source) {
   return markdownToHtml(source, {
     features: MARKDOWN_FEATURES,
     mdastPlugins: [smartDashes],

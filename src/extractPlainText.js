@@ -1,9 +1,9 @@
-import type { MdastNode } from "satteri";
-
 import { markdownToMdast } from "satteri";
 
 import { MARKDOWN_FEATURES } from "./features.js";
 import { applySmartDashes } from "./plugins/smartDashes.js";
+
+/** @import { MdastNode } from "satteri" */
 
 /**
  * Flattens markdown to plain text, replacing `strip-markdown`.
@@ -30,8 +30,13 @@ const SKIPPED_TYPES = new Set([
   "yaml",
 ]);
 
-export function extractPlainText(source: string): string {
-  const blocks: string[] = [];
+/**
+ * @param {string} source
+ * @returns {string}
+ */
+export function extractPlainText(source) {
+  /** @type {string[]} */
+  const blocks = [];
 
   collectBlocks(
     markdownToMdast(source, { features: MARKDOWN_FEATURES }),
@@ -41,7 +46,12 @@ export function extractPlainText(source: string): string {
   return blocks.length > 0 ? `${blocks.join("\n\n")}\n` : "";
 }
 
-function collectBlocks(node: MdastNode, blocks: string[]): void {
+/**
+ * @param {MdastNode} node
+ * @param {string[]} blocks
+ * @returns {void}
+ */
+function collectBlocks(node, blocks) {
   if (SKIPPED_TYPES.has(node.type)) {
     return;
   }
@@ -63,7 +73,11 @@ function collectBlocks(node: MdastNode, blocks: string[]): void {
   }
 }
 
-function inlineText(node: MdastNode): string {
+/**
+ * @param {MdastNode} node
+ * @returns {string}
+ */
+function inlineText(node) {
   switch (node.type) {
     case "break": {
       return "\n";

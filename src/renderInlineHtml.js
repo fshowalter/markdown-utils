@@ -21,8 +21,11 @@ const PARAGRAPH_CLOSE = "</p>";
  *
  * Input that isn't a single paragraph is returned untouched rather than
  * mangled — every edition note in content is one line, so nothing hits that path.
+ *
+ * @param {string} source
+ * @returns {string}
  */
-export function renderInlineHtml(source: string): string {
+export function renderInlineHtml(source) {
   const html = markdownToHtml(source, {
     features: MARKDOWN_FEATURES,
     mdastPlugins: [smartDashes],

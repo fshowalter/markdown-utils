@@ -1,5 +1,4 @@
 import eslint from "@eslint/js";
-import vitest from "@vitest/eslint-plugin";
 import perfectionist from "eslint-plugin-perfectionist";
 import eslintPluginUnicorn from "eslint-plugin-unicorn";
 import { defineConfig } from "eslint/config";
@@ -21,6 +20,20 @@ export default defineConfig(
       // them to act on. Types now live in JSDoc, which typescript-eslint does not lint.
       // The type-aware rules from recommendedTypeChecked still apply -- they work on .js
       // under checkJs, and no-unsafe-* matters more now, not less.
+      //
+      // AIDEV-NOTE: node:test's describe/it return promises that are not meant to be
+      // awaited, so every test in the suite would otherwise trip no-floating-promises.
+      // allowForKnownSafeCalls is the rule's own option for this case -- it narrows the
+      // exemption to those two imports from node:test, so a genuinely floating promise
+      // anywhere else (including inside a test body) is still an error.
+      "@typescript-eslint/no-floating-promises": [
+        "error",
+        {
+          allowForKnownSafeCalls: [
+            { from: "package", name: ["describe", "it"], package: "node:test" },
+          ],
+        },
+      ],
       "no-restricted-imports": [
         "error",
         {
@@ -47,15 +60,6 @@ export default defineConfig(
         tsconfigRootDir: import.meta.dirname,
         warnOnUnsupportedTypeScriptVersion: false,
       },
-    },
-  },
-  {
-    files: ["src/**/?(*.)+(spec|test).[jt]s?(x)"],
-    plugins: {
-      vitest,
-    },
-    rules: {
-      ...vitest.configs.recommended.rules,
     },
   },
 );

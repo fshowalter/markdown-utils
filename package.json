@@ -10,8 +10,8 @@
     "knip": "knip",
     "lint": "eslint  .",
     "lint:fix": "eslint --fix .",
-    "test:coverage": "vitest run src --coverage",
-    "test": "vitest run src"
+    "test:coverage": "node --test --experimental-test-coverage './src/**/*.test.js'",
+    "test": "node --test './src/**/*.test.js'"
   },
   "main": "index.js",
   "types": "./types/index.d.ts",
@@ -34,16 +34,13 @@
   "devDependencies": {
     "@eslint/js": "10.0.1",
     "@types/node": "24.13.3",
-    "@vitest/coverage-v8": "4.1.10",
-    "@vitest/eslint-plugin": "1.6.23",
     "eslint": "10.7.0",
     "eslint-plugin-perfectionist": "5.10.0",
     "eslint-plugin-unicorn": "72.0.0",
     "knip": "6.29.0",
     "prettier": "3.9.6",
     "typescript": "6.0.3",
-    "typescript-eslint": "8.65.0",
-    "vitest": "4.1.10"
+    "typescript-eslint": "8.65.0"
   },
   "engines": {
     "node": "24.18.0",

@@ -28,7 +28,7 @@ jobs:
       - name: install dependencies
         run: npm ci
 
-      - name: vitest
+      - name: test
         run: npm test
 
   knip:

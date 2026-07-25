@@ -1,4 +1,5 @@
-import { describe, it } from "vitest";
+import assert from "node:assert/strict";
+import { describe, it } from "node:test";
 
 import { extractPlainText } from "./extractPlainText.js";
 
@@ -7,91 +8,111 @@ import { extractPlainText } from "./extractPlainText.js";
 // because buildDescription slices the result to 160 characters.
 
 describe("extractPlainText", () => {
-  it("strips inline markup and reduces links to their text", ({ expect }) => {
-    expect(extractPlainText("Hello *world* and [link](/x).")).toBe(
+  it("strips inline markup and reduces links to their text", () => {
+    assert.strictEqual(
+      extractPlainText("Hello *world* and [link](/x)."),
       "Hello world and link.\n",
     );
   });
 
-  it("reduces an image to its alt text", ({ expect }) => {
-    expect(extractPlainText("![alt text](/img.png)")).toBe("alt text\n");
+  it("reduces an image to its alt text", () => {
+    assert.strictEqual(extractPlainText("![alt text](/img.png)"), "alt text\n");
   });
 
-  it("keeps image alt text inline within a paragraph", ({ expect }) => {
-    expect(extractPlainText("Text ![alt](/i.png) more.")).toBe(
+  it("keeps image alt text inline within a paragraph", () => {
+    assert.strictEqual(
+      extractPlainText("Text ![alt](/i.png) more."),
       "Text alt more.\n",
     );
   });
 
-  it("separates paragraphs with a blank line", ({ expect }) => {
-    expect(extractPlainText("One.\n\nTwo.")).toBe("One.\n\nTwo.\n");
+  it("separates paragraphs with a blank line", () => {
+    assert.strictEqual(extractPlainText("One.\n\nTwo."), "One.\n\nTwo.\n");
   });
 
-  it("treats a heading as its own block", ({ expect }) => {
-    expect(extractPlainText("## A heading\n\nBody text.")).toBe(
+  it("treats a heading as its own block", () => {
+    assert.strictEqual(
+      extractPlainText("## A heading\n\nBody text."),
       "A heading\n\nBody text.\n",
     );
   });
 
-  it("treats each list item as its own block", ({ expect }) => {
-    expect(extractPlainText("- one\n- two\n- three")).toBe(
+  it("treats each list item as its own block", () => {
+    assert.strictEqual(
+      extractPlainText("- one\n- two\n- three"),
       "one\n\ntwo\n\nthree\n",
     );
   });
 
-  it("flattens nested list items", ({ expect }) => {
-    expect(extractPlainText("- one\n  - inner\n- two")).toBe(
+  it("flattens nested list items", () => {
+    assert.strictEqual(
+      extractPlainText("- one\n  - inner\n- two"),
       "one\n\ninner\n\ntwo\n",
     );
   });
 
-  it("unwraps blockquotes", ({ expect }) => {
-    expect(extractPlainText("> quoted text\n\nAfter.")).toBe(
+  it("unwraps blockquotes", () => {
+    assert.strictEqual(
+      extractPlainText("> quoted text\n\nAfter."),
       "quoted text\n\nAfter.\n",
     );
   });
 
-  it("drops fenced code blocks entirely", ({ expect }) => {
-    expect(extractPlainText("```js\nconst a = 1;\n```")).toBe("");
+  it("drops fenced code blocks entirely", () => {
+    assert.strictEqual(extractPlainText("```js\nconst a = 1;\n```"), "");
   });
 
-  it("keeps inline code verbatim", ({ expect }) => {
-    expect(extractPlainText("Use `const` here.")).toBe("Use const here.\n");
+  it("keeps inline code verbatim", () => {
+    assert.strictEqual(
+      extractPlainText("Use `const` here."),
+      "Use const here.\n",
+    );
   });
 
-  it("drops thematic breaks", ({ expect }) => {
-    expect(extractPlainText("One.\n\n---\n\nTwo.")).toBe("One.\n\nTwo.\n");
+  it("drops thematic breaks", () => {
+    assert.strictEqual(
+      extractPlainText("One.\n\n---\n\nTwo."),
+      "One.\n\nTwo.\n",
+    );
   });
 
-  it("drops frontmatter", ({ expect }) => {
-    expect(extractPlainText("---\nslug: x\n---\n\nBody.")).toBe("Body.\n");
+  it("drops frontmatter", () => {
+    assert.strictEqual(
+      extractPlainText("---\nslug: x\n---\n\nBody."),
+      "Body.\n",
+    );
   });
 
-  it("removes footnote references and definitions", ({ expect }) => {
-    expect(extractPlainText("Text[^1] here.\n\n[^1]: The note.")).toBe(
+  it("removes footnote references and definitions", () => {
+    assert.strictEqual(
+      extractPlainText("Text[^1] here.\n\n[^1]: The note."),
       "Text here.\n",
     );
   });
 
-  it("drops raw HTML tags but keeps their text content", ({ expect }) => {
-    expect(extractPlainText('A <span data-title-id="x">"T"</span> ref.')).toBe(
+  it("drops raw HTML tags but keeps their text content", () => {
+    assert.strictEqual(
+      extractPlainText('A <span data-title-id="x">"T"</span> ref.'),
       "A “T” ref.\n",
     );
   });
 
-  it("returns an empty string for empty input", ({ expect }) => {
-    expect(extractPlainText("")).toBe("");
+  it("returns an empty string for empty input", () => {
+    assert.strictEqual(extractPlainText(""), "");
   });
 
-  it("returns an empty string for whitespace-only input", ({ expect }) => {
-    expect(extractPlainText(" ".repeat(3))).toBe("");
+  it("returns an empty string for whitespace-only input", () => {
+    assert.strictEqual(extractPlainText(" ".repeat(3)), "");
   });
 
-  it("still applies smart punctuation", ({ expect }) => {
-    expect(extractPlainText(`a--b ... "q"`)).toBe("a—b … “q”\n");
+  it("still applies smart punctuation", () => {
+    assert.strictEqual(extractPlainText(`a--b ... "q"`), "a—b … “q”\n");
   });
 
-  it("does not dash-substitute inside inline code", ({ expect }) => {
-    expect(extractPlainText("Use `a--b` here.")).toBe("Use a--b here.\n");
+  it("does not dash-substitute inside inline code", () => {
+    assert.strictEqual(
+      extractPlainText("Use `a--b` here."),
+      "Use a--b here.\n",
+    );
   });
 });

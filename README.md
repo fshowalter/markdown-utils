@@ -74,8 +74,9 @@ renderDescription("# Heading\n\nSome *body* text here.");
 ## Development
 
 ```sh
-npm test          # vitest
-npm run check     # tsc -- type-checks the JSDoc annotations
+npm test              # node:test -- no test framework dependency
+npm run test:coverage
+npm run check         # tsc -- type-checks the JSDoc annotations
 npm run lint
 npm run format
 npm run build:types   # regenerate types/; must be committed

@@ -7,5 +7,5 @@
  * @param {string} source
  * @returns {string}
  */
-export function renderMarkdown(source: string): string;
-//# sourceMappingURL=renderMarkdown.d.ts.map
+export function renderHtml(source: string): string;
+//# sourceMappingURL=renderHtml.d.ts.map

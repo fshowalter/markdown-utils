@@ -19,12 +19,6 @@ jobs:
           node-version-file: ".nvmrc"
           cache: "npm"
 
-      - name: setup npm
-        run: |
-          ./npm_use.sh &&
-          npm --version &&
-          npm list -g --depth 0
-
       - name: install dependencies
         run: npm ci
 
@@ -41,12 +35,6 @@ jobs:
         with:
           node-version-file: ".nvmrc"
           cache: "npm"
-
-      - name: setup npm
-        run: |
-          ./npm_use.sh &&
-          npm --version &&
-          npm list -g --depth 0
 
       - name: install dependencies
         run: npm ci
@@ -65,12 +53,6 @@ jobs:
           node-version-file: ".nvmrc"
           cache: "npm"
 
-      - name: setup npm
-        run: |
-          ./npm_use.sh &&
-          npm --version &&
-          npm list -g --depth 0
-
       - name: install dependencies
         run: npm ci
 
@@ -87,12 +69,6 @@ jobs:
         with:
           node-version-file: ".nvmrc"
           cache: "npm"
-
-      - name: setup npm
-        run: |
-          ./npm_use.sh &&
-          npm --version &&
-          npm list -g --depth 0
 
       - name: install dependencies
         run: npm ci
@@ -117,12 +93,6 @@ jobs:
         with:
           node-version-file: ".nvmrc"
           cache: "npm"
-
-      - name: setup npm
-        run: |
-          ./npm_use.sh &&
-          npm --version &&
-          npm list -g --depth 0
 
       - name: install dependencies
         run: npm ci

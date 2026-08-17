@@ -28,7 +28,7 @@
     "!src/**/*.test.js"
   ],
   "dependencies": {
-    "js-yaml": "5.2.3",
+    "js-yaml": "5.3.0",
     "satteri": "0.9.5"
   },
   "devDependencies": {

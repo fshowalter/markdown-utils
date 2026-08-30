@@ -52,10 +52,10 @@ export function extractPlainText(source, options = {}) {
 
   collectBlocks(markdownToMdast(source, { features: MARKDOWN_FEATURES }), {
     blocks,
-    // AIDEV-NOTE: Sätteri's offsets count code points, not UTF-16 code units, so
-    // an astral character earlier in the source shifts every later `source[i]`.
-    // Indexing this array instead keeps the marker lookup honest.
-    characters: options.quoteUnderscoreEmphasis ? [...source] : undefined,
+    // AIDEV-NOTE: Sätteri's offsets are UTF-16 code units, so `source[offset]`
+    // lines up even when an astral character precedes the marker. (They counted
+    // code points before 0.10, which needed a `[...source]` array here.)
+    source: options.quoteUnderscoreEmphasis ? source : undefined,
   });
 
   return blocks.length > 0 ? `${blocks.join("\n\n")}\n` : "";
@@ -64,8 +64,8 @@ export function extractPlainText(source, options = {}) {
 /**
  * @typedef {object} WalkContext
  * @property {string[]} blocks Blocks collected so far.
- * @property {string[] | undefined} characters The source as code points, present
- *   only when underscore emphasis is being quoted.
+ * @property {string | undefined} source The markdown source, present only when
+ *   underscore emphasis is being quoted.
  */
 
 /**
@@ -119,7 +119,7 @@ function inlineText(node, context) {
     case "emphasis": {
       const text = childrenText(node, context);
 
-      return isUnderscoreDelimited(node, context.characters)
+      return isUnderscoreDelimited(node, context.source)
         ? `${LEFT_QUOTE}${text}${RIGHT_QUOTE}`
         : text;
     }
@@ -143,15 +143,11 @@ function inlineText(node, context) {
 
 /**
  * @param {MdastNode} node
- * @param {string[] | undefined} characters
+ * @param {string | undefined} source
  * @returns {boolean}
  */
-function isUnderscoreDelimited(node, characters) {
+function isUnderscoreDelimited(node, source) {
   const offset = node.position?.start.offset;
 
-  return (
-    characters !== undefined &&
-    offset !== undefined &&
-    characters[offset] === "_"
-  );
+  return source !== undefined && offset !== undefined && source[offset] === "_";
 }

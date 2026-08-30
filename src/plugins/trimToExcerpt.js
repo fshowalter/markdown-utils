@@ -1,6 +1,6 @@
 import { defineMdastPlugin } from "satteri";
 
-/** @import { MdastNode, MdastPluginDefinition, MdastVisitorContext } from "satteri" */
+/** @import { MdastNode, MdastVisitorContext } from "satteri" */
 
 /**
  * Drops every root-level block that follows the first paragraph, leaving an
@@ -16,7 +16,11 @@ import { defineMdastPlugin } from "satteri";
  * This is a factory rather than a plain definition so the "seen" flag resets
  * between documents — Sätteri calls factories once per compile.
  *
- * @returns {MdastPluginDefinition}
+ * AIDEV-NOTE: The return type is deliberately left to inference rather than
+ * annotated as `MdastPluginDefinition`. Since 0.10, Sätteri infers whether
+ * `markdownToHtml` returns a result or a promise from the visitors' return
+ * types, and the wide definition type resolves to "maybe async", which would
+ * make renderExcerpt's call return `Result | Promise<Result>`.
  */
 export function trimToExcerpt() {
   let seenFirstParagraph = false;

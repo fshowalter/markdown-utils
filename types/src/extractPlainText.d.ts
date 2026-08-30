@@ -24,9 +24,9 @@ export type WalkContext = {
      */
     blocks: string[];
     /**
-     * The source as code points, present
-     * only when underscore emphasis is being quoted.
+     * The markdown source, present only when
+     * underscore emphasis is being quoted.
      */
-    characters: string[] | undefined;
+    source: string | undefined;
 };
 //# sourceMappingURL=extractPlainText.d.ts.map

@@ -34,7 +34,7 @@
   "devDependencies": {
     "@eslint/js": "10.0.1",
     "@types/node": "24.13.3",
-    "eslint": "10.9.1",
+    "eslint": "10.10.0",
     "eslint-plugin-perfectionist": "5.11.0",
     "eslint-plugin-unicorn": "74.0.0",
     "knip": "6.34.0",

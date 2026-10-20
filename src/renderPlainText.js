@@ -57,7 +57,7 @@ export function renderPlainText(source, options = {}) {
 function dropUnclosedQuote(text) {
   const opened = text.lastIndexOf(LEFT_QUOTE);
 
-  return opened !== -1 && !text.includes(RIGHT_QUOTE, opened)
-    ? text.slice(0, opened).trimEnd()
-    : text;
+  return opened === -1 || text.includes(RIGHT_QUOTE, opened)
+    ? text
+    : text.slice(0, opened).trimEnd();
 }

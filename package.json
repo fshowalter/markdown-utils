@@ -36,7 +36,7 @@
     "@types/node": "24.19.2",
     "eslint": "10.13.0",
     "eslint-plugin-perfectionist": "5.13.0",
-    "eslint-plugin-unicorn": "78.0.0",
+    "eslint-plugin-unicorn": "79.0.0",
     "knip": "6.42.1",
     "prettier": "3.9.10",
     "typescript": "6.0.3",
